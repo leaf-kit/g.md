@@ -347,5 +347,5 @@ fn test_version() {
         .expect("failed to execute");
 
     let stdout = String::from_utf8_lossy(&output.stdout);
-    assert!(stdout.contains("0.1.0"), "stdout: {}", stdout);
+    assert!(stdout.contains("0.2.0"), "stdout: {}", stdout);
 }
