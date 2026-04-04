@@ -8,11 +8,17 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org/)
 [![Homebrew](https://img.shields.io/badge/homebrew-leaf--kit%2Fgmd-yellow.svg)](https://github.com/leaf-kit/homebrew-gmd)
-[![Experimental](https://img.shields.io/badge/status-experimental-orange.svg)]()
+[![Homebrew install](https://img.shields.io/badge/brew%20install-gmd-success.svg)](https://github.com/leaf-kit/homebrew-gmd)
 [![pipe](https://img.shields.io/badge/pipe-grep%20%7C%20awk%20%7C%20jq-blue.svg)]()
 [![AI Agent](https://img.shields.io/badge/agent--scan-claude%20%7C%20codex%20%7C%20copilot%20%7C%20cursor-purple.svg)]()
 
 Fast, structure-aware Markdown search & analysis tool for the terminal.
+
+> **v0.1.0 Released** — [GitHub Release](https://github.com/leaf-kit/g.md/releases/tag/v0.1.0) | [Homebrew Tap](https://github.com/leaf-kit/homebrew-gmd)
+>
+> ```bash
+> brew tap leaf-kit/gmd && brew install gmd
+> ```
 
 **gmd** searches across Markdown documents with precision — filter by headings, code blocks, links, bold text, or quotes. It tracks todos, validates images and links, analyzes tags and frontmatter, and generates AI-ready prompt context. All from a single CLI.
 

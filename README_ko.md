@@ -8,11 +8,17 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org/)
 [![Homebrew](https://img.shields.io/badge/homebrew-leaf--kit%2Fgmd-yellow.svg)](https://github.com/leaf-kit/homebrew-gmd)
-[![Experimental](https://img.shields.io/badge/status-experimental-orange.svg)]()
+[![Homebrew install](https://img.shields.io/badge/brew%20install-gmd-success.svg)](https://github.com/leaf-kit/homebrew-gmd)
 [![pipe](https://img.shields.io/badge/pipe-grep%20%7C%20awk%20%7C%20jq-blue.svg)]()
 [![AI Agent](https://img.shields.io/badge/agent--scan-claude%20%7C%20codex%20%7C%20copilot%20%7C%20cursor-purple.svg)]()
 
 터미널에서 사용하는 빠르고 구조 인식이 가능한 마크다운 검색 및 분석 도구.
+
+> **v0.1.0 배포 완료** — [GitHub Release](https://github.com/leaf-kit/g.md/releases/tag/v0.1.0) | [Homebrew Tap](https://github.com/leaf-kit/homebrew-gmd)
+>
+> ```bash
+> brew tap leaf-kit/gmd && brew install gmd
+> ```
 
 **gmd**는 마크다운 문서를 정밀하게 검색합니다 — 제목, 코드 블록, 링크, 굵은 텍스트, 인용문별로 필터링이 가능합니다. 할 일 추적, 이미지와 링크 유효성 검사, 태그 및 프론트매터 분석, AI 프롬프트용 컨텍스트 생성까지, 하나의 CLI로 모두 처리합니다.
 
