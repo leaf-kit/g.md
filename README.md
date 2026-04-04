@@ -101,6 +101,47 @@ brew untap leaf-kit/gmd
 rm /usr/local/bin/gmd
 ```
 
+## Playground
+
+The repository includes a `playground/` directory with sample Markdown documents across `docs/`, `notes/`, and `projects/`. You can run all gmd commands at once to see every feature in action.
+
+**1. Install gmd:**
+
+```bash
+brew tap leaf-kit/gmd && brew install gmd
+```
+
+**2. Clone and run the playground:**
+
+```bash
+git clone https://github.com/leaf-kit/g.md.git
+cd g.md/playground
+./run_all_commands.sh
+```
+
+This executes **41 commands** — todo, find, img, link, tag, meta, export, prompt, stat, agent scan, and pipe integration — and reports PASS/FAIL for each. A quick way to explore what gmd can do.
+
+```
+================================================================
+  gmd — Run All Commands
+  Version: gmd 0.2.0
+  Target:  /path/to/g.md/playground
+================================================================
+
+  [1] Version
+  $ gmd --version
+  ...
+  -> PASS
+
+  [2] Help
+  ...
+
+================================================================
+  Results: 41 passed, 0 failed, 41 total
+================================================================
+  All commands passed!
+```
+
 ## Usage
 
 ```

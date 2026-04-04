@@ -101,6 +101,46 @@ brew untap leaf-kit/gmd
 rm /usr/local/bin/gmd
 ```
 
+## 플레이그라운드
+
+저장소에 `playground/` 디렉터리가 포함되어 있으며, `docs/`, `notes/`, `projects/` 등 다양한 샘플 마크다운 문서가 들어있습니다. 모든 gmd 명령어를 한 번에 실행하여 각 기능을 직접 확인해볼 수 있습니다.
+
+**1. gmd 설치:**
+
+```bash
+brew tap leaf-kit/gmd && brew install gmd
+```
+
+**2. 저장소 클론 후 플레이그라운드 실행:**
+
+```bash
+git clone https://github.com/leaf-kit/g.md.git
+cd g.md/playground
+./run_all_commands.sh
+```
+
+**41개 명령어** — todo, find, img, link, tag, meta, export, prompt, stat, agent scan, pipe 연동 — 를 순차 실행하고 각 명령어의 PASS/FAIL을 출력합니다. gmd가 무엇을 할 수 있는지 빠르게 탐색할 수 있는 가장 좋은 방법입니다.
+
+```
+================================================================
+  gmd — Run All Commands
+  Version: gmd 0.2.0
+  Target:  /path/to/g.md/playground
+================================================================
+
+  [1] Version
+  $ gmd --version
+  ...
+  -> PASS
+
+  ...
+
+================================================================
+  Results: 41 passed, 0 failed, 41 total
+================================================================
+  All commands passed!
+```
+
 ## 사용법
 
 ```
