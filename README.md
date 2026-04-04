@@ -102,7 +102,7 @@ rm /usr/local/bin/gmd
 A blazingly fast CLI tool for searching, analyzing, and managing
 Markdown documents. Built with Rust for speed and safety.
 
-GMD helps you search todos, find content, check assets,
+gmd helps you search todos, find content, check assets,
 manage tags, export data, and scan AI agent configurations.
 
 Usage: gmd [OPTIONS] <COMMAND>
@@ -133,7 +133,7 @@ Options:
   -V, --version      Print version
 
 Discussion:
-    GMD is your markdown companion for navigating large document
+    gmd is your markdown companion for navigating large document
     collections. It parses frontmatter, tracks todos, validates links
     and images, and can even prepare context for AI prompts.
 
@@ -526,7 +526,7 @@ Overview and maintenance.
 
 ```
 % gmd stat
-  GMD Statistics
+  gmd Statistics
   ========================================
   Documents:                10
   Total size:               10.2 KB
@@ -569,7 +569,7 @@ Overview and maintenance.
 
 ```
 % gmd clean
-  GMD Clean Report
+  gmd Clean Report
   ==================================================
 
   Empty files:

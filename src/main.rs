@@ -6,17 +6,17 @@ mod parser;
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 
-/// GMD (Mink) - Markdown Insight & Navigation Kit
+/// gmd — Grep Markdown
 ///
 /// A blazingly fast CLI tool for searching, analyzing, and managing
 /// Markdown documents. Built with Rust for speed and safety.
 #[derive(Parser)]
 #[command(
     name = "gmd",
-    version = "0.1.0",
-    about = "GMD (Mink) - Markdown Insight & Navigation Kit",
-    long_about = "A blazingly fast CLI tool for searching, analyzing, and managing\nMarkdown documents. Built with Rust for speed and safety.\n\nGMD helps you search todos, find content, check assets,\nmanage tags, export data, and scan AI agent configurations.",
-    after_help = "Discussion:\n    GMD is your markdown companion for navigating large document\n    collections. It parses frontmatter, tracks todos, validates links\n    and images, and can even prepare context for AI prompts.\n\n    Get started with `gmd stat` to see an overview of your documents,\n    or `gmd find <QUERY>` to search across all markdown files."
+    version = env!("CARGO_PKG_VERSION"),
+    about = "gmd — Grep Markdown",
+    long_about = "gmd — Grep Markdown\n\nA blazingly fast CLI tool for searching, analyzing, and managing\nMarkdown documents. Built with Rust for speed and safety.\n\ngmd helps you search todos, find content, check assets,\nmanage tags, export data, and scan AI agent configurations.",
+    after_help = "Discussion:\n    gmd is your markdown companion for navigating large document\n    collections. It parses frontmatter, tracks todos, validates links\n    and images, and can even prepare context for AI prompts.\n\n    Get started with `gmd stat` to see an overview of your documents,\n    or `gmd find <QUERY>` to search across all markdown files."
 )]
 struct Cli {
     #[command(subcommand)]

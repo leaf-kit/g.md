@@ -2,7 +2,7 @@
 name = "gmd"
 version = "0.1.0"
 edition = "2021"
-description = "GMD (Mink) - Markdown Insight & Navigation Kit"
+description = "gmd — Grep Markdown"
 license = "MIT"
 repository = "https://github.com/leaf-kit/g.md"
 keywords = ["markdown", "search", "cli", "grep"]

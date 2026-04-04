@@ -25,7 +25,7 @@ fn stat_overview(files: &[crate::parser::walker::MdFile], _root: &Path) {
         total_chars += file.content.chars().count() as u64;
     }
 
-    println!("{}", "  GMD Statistics".bold());
+    println!("{}", "  gmd Statistics".bold());
     println!("  {}", "=".repeat(40));
     println!("  {:<25} {}", "Documents:", total_files);
     println!("  {:<25} {}", "Total size:", format_bytes(total_bytes));

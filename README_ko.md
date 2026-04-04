@@ -348,7 +348,7 @@ Based on the above context from the Markdown documents, please provide your anal
 
 ```
 % gmd stat
-  GMD Statistics
+  gmd Statistics
   ========================================
   Documents:                10
   Total size:               10.2 KB

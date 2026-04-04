@@ -7,7 +7,7 @@ pub fn run_clean(path: &Path) {
     let files = walk_markdown_files(path);
     let mut issues = 0;
 
-    println!("{}", "  GMD Clean Report".bold());
+    println!("{}", "  gmd Clean Report".bold());
     println!("  {}", "=".repeat(50));
 
     // 1. Empty files

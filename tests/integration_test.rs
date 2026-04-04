@@ -347,7 +347,7 @@ fn test_help() {
         .expect("failed to execute");
 
     let stdout = String::from_utf8_lossy(&output.stdout);
-    assert!(stdout.contains("GMD"), "stdout: {}", stdout);
+    assert!(stdout.contains("gmd"), "stdout: {}", stdout);
     assert!(stdout.contains("todo"), "stdout: {}", stdout);
     assert!(stdout.contains("find"), "stdout: {}", stdout);
 }

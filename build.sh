@@ -13,9 +13,22 @@ get_version() {
     grep '^version' Cargo.toml | head -1 | sed 's/.*"\(.*\)"/\1/'
 }
 
+bump_patch_version() {
+    local current
+    current=$(get_version)
+    local major minor patch
+    IFS='.' read -r major minor patch <<< "$current"
+    patch=$((patch + 1))
+    local new_version="${major}.${minor}.${patch}"
+    sed -i '' "s/^version = \"${current}\"/version = \"${new_version}\"/" Cargo.toml
+    echo ">> Version bumped: ${current} -> ${new_version}"
+}
+
 show_menu() {
+    local ver
+    ver=$(get_version)
     echo "=================================="
-    echo "  gmd — Build & Distribution"
+    echo "  gmd v${ver} — Build & Distribution"
     echo "=================================="
     echo ""
     echo "  1) Build (debug, clean)"
@@ -56,9 +69,10 @@ require_tests() {
 
 build_release() {
     require_tests || return 1
+    bump_patch_version
     echo ">> Building release..."
     cargo build --release
-    echo ">> Done: target/release/$BINARY_NAME"
+    echo ">> Done: target/release/$BINARY_NAME (v$(get_version))"
 }
 
 install_local() {

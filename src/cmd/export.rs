@@ -16,7 +16,7 @@ pub fn run_export(path: &Path, format: &str, query: Option<&str>) {
 
 fn export_md(files: &[crate::parser::walker::MdFile], root: &Path, query: Option<&str>) {
     let mut output = String::new();
-    output.push_str("# GMD Export\n\n");
+    output.push_str("# gmd Export\n\n");
 
     for file in files {
         let rel = file.path.strip_prefix(root).unwrap_or(&file.path);
