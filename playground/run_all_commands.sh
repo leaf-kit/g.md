@@ -2,15 +2,15 @@
 # ==============================================================================
 #  gmd — Run All Commands
 #
-#  Executes every gmd command against the tree/ sample documents.
+#  Executes every gmd command against the playground/ sample documents.
 #  Designed for quick validation after build or install.
 #
 #  Usage:
-#    cd tree/
+#    cd playground/
 #    ./run_all_commands.sh
 #
 #  Or from project root:
-#    ./tree/run_all_commands.sh
+#    ./playground/run_all_commands.sh
 # ==============================================================================
 
 set -euo pipefail
@@ -22,7 +22,7 @@ GMD="${GMD:-gmd}"
 # Verify gmd is available
 if ! command -v "$GMD" &>/dev/null; then
     echo "Error: '$GMD' not found. Install with: brew tap leaf-kit/gmd && brew install gmd"
-    echo "Or set GMD env var: GMD=./target/release/gmd ./tree/run_all_commands.sh"
+    echo "Or set GMD env var: GMD=./target/release/gmd ./playground/run_all_commands.sh"
     exit 1
 fi
 

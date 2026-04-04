@@ -82,13 +82,13 @@ CLAUDE.md
 .copilot/
 .github/copilot/
 
-# ===== Allow tree/ test samples =====
-!tree/**/CLAUDE.md
-!tree/**/.claude/
-!tree/**/.claude/**
-!tree/**/.cursor/
-!tree/**/.cursor/**
-!tree/**/.cursorrules
+# ===== Allow playground/ test samples =====
+!playground/**/CLAUDE.md
+!playground/**/.claude/
+!playground/**/.claude/**
+!playground/**/.cursor/
+!playground/**/.cursor/**
+!playground/**/.cursorrules
 
 # ===== Misc =====
 .cache/

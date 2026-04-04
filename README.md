@@ -148,7 +148,7 @@ Discussion:
 
 ## Commands & Output Examples
 
-All examples below are actual outputs from running `gmd` against the included `tree/` sample documents (10 Markdown files across `docs/`, `notes/`, and `projects/`).
+All examples below are actual outputs from running `gmd` against the included `playground/` sample documents (10 Markdown files across `docs/`, `notes/`, and `projects/`).
 
 ### 1. Task Management (`todo`)
 
