@@ -125,7 +125,6 @@ Commands:
   codex   OpenAI Codex 에이전트 설정 스캔
   agents  모든 AI 에이전트 설정 스캔
   ui      인터랙티브 TUI 탐색 모드
-  clean   중복 및 빈 파일 정리 제안
   help    도움말 출력
 
 Options:
@@ -348,7 +347,7 @@ Based on the above context from the Markdown documents, please provide your anal
 | `gmd prompt <QUERY>` | AI 프롬프트용 컨텍스트 생성 |
 | `gmd path` | 파일 경로만 출력 |
 
-### 6. 시스템 및 통계 (`stat`, `clean`)
+### 6. 시스템 및 통계 (`stat`)
 
 전체 현황 파악 및 유지보수.
 
@@ -384,7 +383,6 @@ Based on the above context from the Markdown documents, please provide your anal
 |--------|------|
 | `gmd stat` | 문서 수, 용량, 단어 수 통계 |
 | `gmd stat time` | 읽기 시간 및 활동 패턴 분석 |
-| `gmd clean` | 빈 파일/중복/짧은 파일 탐지 |
 
 ### 7. AI 에이전트 스캐너 (`claude`, `codex`, `agents`)
 

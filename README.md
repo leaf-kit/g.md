@@ -128,7 +128,6 @@ Commands:
   codex   Scan OpenAI Codex agent configuration
   agents  Scan all AI agent configurations
   ui      Interactive TUI exploration mode
-  clean   Find and suggest cleanup for duplicates and empty files
   help    Print this message or the help of the given subcommand(s)
 
 Options:
@@ -526,9 +525,9 @@ CLAUDE.md
 | `gmd prompt <QUERY>` | Generate AI prompt with context |
 | `gmd path` | List file paths only |
 
-### 6. System & Statistics (`stat`, `clean`)
+### 6. System & Statistics (`stat`)
 
-Overview and maintenance.
+Overview and statistics.
 
 ```
 % gmd stat
@@ -573,28 +572,10 @@ Overview and maintenance.
   Sun                       (0)
 ```
 
-```
-% gmd clean
-  gmd Clean Report
-  ==================================================
-
-  Empty files:
-    None found.
-
-  Potential duplicates (same content):
-    None found.
-  Very short files (< 50 chars):
-    None found.
-
-  --------------------------------------------------
-  All clean! No issues found.
-```
-
 | Command | Description |
 |---------|-------------|
 | `gmd stat` | Document count, size, word stats |
 | `gmd stat time` | Reading time and activity analysis |
-| `gmd clean` | Detect empty/duplicate/short files |
 
 ### 7. AI Agent Scanner (`claude`, `codex`, `agents`)
 

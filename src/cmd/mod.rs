@@ -1,4 +1,3 @@
-pub mod clean;
 pub mod export;
 pub mod find;
 pub mod img;

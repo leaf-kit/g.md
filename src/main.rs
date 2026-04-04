@@ -156,12 +156,6 @@ enum Commands {
 
     /// Interactive TUI exploration mode
     Ui,
-
-    /// Find and suggest cleanup for duplicates and empty files
-    ///
-    /// Scan for empty files, duplicate content, and very
-    /// short documents that may need attention.
-    Clean,
 }
 
 fn main() {
@@ -227,9 +221,6 @@ fn main() {
         Commands::Ui => {
             eprintln!("TUI mode is coming in v0.2.0. Stay tuned!");
             std::process::exit(0);
-        }
-        Commands::Clean => {
-            cmd::clean::run_clean(&path);
         }
     }
 }

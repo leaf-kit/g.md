@@ -299,19 +299,6 @@ fn test_path_only() {
 }
 
 #[test]
-fn test_clean() {
-    let dir = setup_test_dir("clean");
-    let output = Command::new(gmd_bin())
-        .args(["clean", "-p", dir.to_str().unwrap()])
-        .output()
-        .expect("failed to execute");
-
-    let stdout = String::from_utf8_lossy(&output.stdout);
-    assert!(stdout.contains("Clean Report"), "stdout: {}", stdout);
-    let _ = fs::remove_dir_all(&dir);
-}
-
-#[test]
 fn test_prompt() {
     let dir = setup_test_dir("prompt");
     let output = Command::new(gmd_bin())
