@@ -327,6 +327,133 @@ fn test_agents_scan() {
 }
 
 #[test]
+fn test_find_full_path() {
+    let dir = setup_test_dir("find_full_path");
+    let output = Command::new(gmd_bin())
+        .args(["find", "Rust", "--full-path", "-p", dir.to_str().unwrap()])
+        .output()
+        .expect("failed to execute");
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    // Full path must contain the temp dir absolute path
+    assert!(
+        stdout.contains(dir.to_str().unwrap()),
+        "expected absolute path containing '{}', got: {}",
+        dir.display(),
+        stdout
+    );
+    assert!(stdout.contains("Rust"), "stdout: {}", stdout);
+    let _ = fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn test_find_full_path_short() {
+    let dir = setup_test_dir("find_full_path_short");
+    let output = Command::new(gmd_bin())
+        .args(["find", "Rust", "-F", "-p", dir.to_str().unwrap()])
+        .output()
+        .expect("failed to execute");
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(
+        stdout.contains(dir.to_str().unwrap()),
+        "expected absolute path, got: {}",
+        stdout
+    );
+    let _ = fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn test_find_relative_path() {
+    let dir = setup_test_dir("find_relative_path");
+    let output = Command::new(gmd_bin())
+        .args([
+            "find",
+            "Rust",
+            "--relative-path",
+            "-p",
+            dir.to_str().unwrap(),
+        ])
+        .output()
+        .expect("failed to execute");
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(
+        stdout.contains("./"),
+        "expected relative path with ./ prefix, got: {}",
+        stdout
+    );
+    assert!(stdout.contains("Rust"), "stdout: {}", stdout);
+    let _ = fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn test_find_relative_path_short() {
+    let dir = setup_test_dir("find_relative_path_short");
+    let output = Command::new(gmd_bin())
+        .args(["find", "Rust", "-R", "-p", dir.to_str().unwrap()])
+        .output()
+        .expect("failed to execute");
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(
+        stdout.contains("./"),
+        "expected relative path with ./ prefix, got: {}",
+        stdout
+    );
+    let _ = fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn test_find_head_full_path() {
+    let dir = setup_test_dir("find_head_full_path");
+    let output = Command::new(gmd_bin())
+        .args([
+            "find",
+            "head",
+            "Notes",
+            "-F",
+            "-p",
+            dir.to_str().unwrap(),
+        ])
+        .output()
+        .expect("failed to execute");
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(
+        stdout.contains(dir.to_str().unwrap()),
+        "expected absolute path, got: {}",
+        stdout
+    );
+    assert!(stdout.contains("My Notes"), "stdout: {}", stdout);
+    let _ = fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn test_find_head_relative_path() {
+    let dir = setup_test_dir("find_head_relative_path");
+    let output = Command::new(gmd_bin())
+        .args([
+            "find",
+            "head",
+            "Notes",
+            "-R",
+            "-p",
+            dir.to_str().unwrap(),
+        ])
+        .output()
+        .expect("failed to execute");
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(
+        stdout.contains("./"),
+        "expected relative path with ./ prefix, got: {}",
+        stdout
+    );
+    let _ = fs::remove_dir_all(&dir);
+}
+
+#[test]
 fn test_help() {
     let output = Command::new(gmd_bin())
         .args(["--help"])

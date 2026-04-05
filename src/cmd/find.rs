@@ -3,28 +3,57 @@ use crate::parser::markdown::{parse_markdown, MdElement};
 use crate::parser::walker::{walk_markdown_files, MdFile};
 use std::path::Path;
 
-pub fn run_find(path: &Path, sub: Option<&str>, query: &str) {
-    let files = walk_markdown_files(path);
+/// Controls how file paths are displayed in search results.
+pub enum PathMode {
+    /// Default: strip root prefix (e.g. `notes.md`)
+    Default,
+    /// Full absolute path (e.g. `/home/user/docs/notes.md`)
+    Full,
+    /// Relative with `./` prefix (e.g. `./notes.md`)
+    Relative,
+}
 
-    match sub {
-        Some("head") => find_in_headings(&files, path, query),
-        Some("code") => find_in_code(&files, path, query),
-        Some("link") => find_in_links(&files, path, query),
-        Some("bold") => find_in_bold(&files, path, query),
-        Some("quote") => find_in_quotes(&files, path, query),
-        _ => find_all(&files, path, query),
+fn resolve_display_path(file: &Path, root: &Path, mode: &PathMode) -> String {
+    match mode {
+        PathMode::Full => {
+            // Return canonical absolute path
+            file.canonicalize()
+                .unwrap_or_else(|_| file.to_path_buf())
+                .display()
+                .to_string()
+        }
+        PathMode::Relative => {
+            let rel = file.strip_prefix(root).unwrap_or(file);
+            format!("./{}", rel.display())
+        }
+        PathMode::Default => {
+            let rel = file.strip_prefix(root).unwrap_or(file);
+            rel.display().to_string()
+        }
     }
 }
 
-fn find_all(files: &[MdFile], root: &Path, query: &str) {
+pub fn run_find(path: &Path, sub: Option<&str>, query: &str, mode: PathMode) {
+    let files = walk_markdown_files(path);
+
+    match sub {
+        Some("head") => find_in_headings(&files, path, query, &mode),
+        Some("code") => find_in_code(&files, path, query, &mode),
+        Some("link") => find_in_links(&files, path, query, &mode),
+        Some("bold") => find_in_bold(&files, path, query, &mode),
+        Some("quote") => find_in_quotes(&files, path, query, &mode),
+        _ => find_all(&files, path, query, &mode),
+    }
+}
+
+fn find_all(files: &[MdFile], root: &Path, query: &str, mode: &PathMode) {
     let q = query.to_lowercase();
     let mut count = 0;
     for file in files {
         for (i, line) in file.content.lines().enumerate() {
             if line.to_lowercase().contains(&q) {
-                let rel = file.path.strip_prefix(root).unwrap_or(&file.path);
                 print_result(&SearchResult {
-                    file: rel.display().to_string(),
+                    file: resolve_display_path(&file.path, root, mode),
                     line: i + 1,
                     content: line.to_string(),
                 });
@@ -35,7 +64,7 @@ fn find_all(files: &[MdFile], root: &Path, query: &str) {
     print_count(count);
 }
 
-fn find_in_headings(files: &[MdFile], root: &Path, query: &str) {
+fn find_in_headings(files: &[MdFile], root: &Path, query: &str, mode: &PathMode) {
     let q = query.to_lowercase();
     let mut count = 0;
     for file in files {
@@ -43,9 +72,8 @@ fn find_in_headings(files: &[MdFile], root: &Path, query: &str) {
         for el in &elements {
             if let MdElement::Heading { text, line, level } = el {
                 if text.to_lowercase().contains(&q) {
-                    let rel = file.path.strip_prefix(root).unwrap_or(&file.path);
                     print_result(&SearchResult {
-                        file: rel.display().to_string(),
+                        file: resolve_display_path(&file.path, root, mode),
                         line: *line,
                         content: format!("{} {}", "#".repeat(*level as usize), text),
                     });
@@ -57,7 +85,7 @@ fn find_in_headings(files: &[MdFile], root: &Path, query: &str) {
     print_count(count);
 }
 
-fn find_in_code(files: &[MdFile], root: &Path, query: &str) {
+fn find_in_code(files: &[MdFile], root: &Path, query: &str, mode: &PathMode) {
     let q = query.to_lowercase();
     let mut count = 0;
     for file in files {
@@ -72,9 +100,8 @@ fn find_in_code(files: &[MdFile], root: &Path, query: &str) {
             {
                 for (i, code_line) in content.lines().enumerate() {
                     if code_line.to_lowercase().contains(&q) {
-                        let rel = file.path.strip_prefix(root).unwrap_or(&file.path);
                         print_result(&SearchResult {
-                            file: rel.display().to_string(),
+                            file: resolve_display_path(&file.path, root, mode),
                             line: start_line + 1 + i,
                             content: format!("[{}] {}", lang, code_line),
                         });
@@ -87,7 +114,7 @@ fn find_in_code(files: &[MdFile], root: &Path, query: &str) {
     print_count(count);
 }
 
-fn find_in_links(files: &[MdFile], root: &Path, query: &str) {
+fn find_in_links(files: &[MdFile], root: &Path, query: &str, mode: &PathMode) {
     let q = query.to_lowercase();
     let mut count = 0;
     for file in files {
@@ -96,9 +123,8 @@ fn find_in_links(files: &[MdFile], root: &Path, query: &str) {
             match el {
                 MdElement::Link { text, url, line } => {
                     if text.to_lowercase().contains(&q) || url.to_lowercase().contains(&q) {
-                        let rel = file.path.strip_prefix(root).unwrap_or(&file.path);
                         print_result(&SearchResult {
-                            file: rel.display().to_string(),
+                            file: resolve_display_path(&file.path, root, mode),
                             line: *line,
                             content: format!("[{}]({})", text, url),
                         });
@@ -107,9 +133,8 @@ fn find_in_links(files: &[MdFile], root: &Path, query: &str) {
                 }
                 MdElement::WikiLink { target, line } => {
                     if target.to_lowercase().contains(&q) {
-                        let rel = file.path.strip_prefix(root).unwrap_or(&file.path);
                         print_result(&SearchResult {
-                            file: rel.display().to_string(),
+                            file: resolve_display_path(&file.path, root, mode),
                             line: *line,
                             content: format!("[[{}]]", target),
                         });
@@ -123,7 +148,7 @@ fn find_in_links(files: &[MdFile], root: &Path, query: &str) {
     print_count(count);
 }
 
-fn find_in_bold(files: &[MdFile], root: &Path, query: &str) {
+fn find_in_bold(files: &[MdFile], root: &Path, query: &str, mode: &PathMode) {
     let q = query.to_lowercase();
     let mut count = 0;
     for file in files {
@@ -131,9 +156,8 @@ fn find_in_bold(files: &[MdFile], root: &Path, query: &str) {
         for el in &elements {
             if let MdElement::Bold { text, line } = el {
                 if text.to_lowercase().contains(&q) {
-                    let rel = file.path.strip_prefix(root).unwrap_or(&file.path);
                     print_result(&SearchResult {
-                        file: rel.display().to_string(),
+                        file: resolve_display_path(&file.path, root, mode),
                         line: *line,
                         content: format!("**{}**", text),
                     });
@@ -145,7 +169,7 @@ fn find_in_bold(files: &[MdFile], root: &Path, query: &str) {
     print_count(count);
 }
 
-fn find_in_quotes(files: &[MdFile], root: &Path, query: &str) {
+fn find_in_quotes(files: &[MdFile], root: &Path, query: &str, mode: &PathMode) {
     let q = query.to_lowercase();
     let mut count = 0;
     for file in files {
@@ -153,9 +177,8 @@ fn find_in_quotes(files: &[MdFile], root: &Path, query: &str) {
         for el in &elements {
             if let MdElement::Quote { text, line } = el {
                 if text.to_lowercase().contains(&q) {
-                    let rel = file.path.strip_prefix(root).unwrap_or(&file.path);
                     print_result(&SearchResult {
-                        file: rel.display().to_string(),
+                        file: resolve_display_path(&file.path, root, mode),
                         line: *line,
                         content: format!("> {}", text),
                     });

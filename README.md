@@ -119,7 +119,7 @@ cd g.md/playground
 ./run_all_commands.sh
 ```
 
-This executes **41 commands** — todo, find, img, link, tag, meta, export, prompt, stat, agent scan, and pipe integration — and reports PASS/FAIL for each. A quick way to explore what gmd can do.
+This executes **47 commands** — todo, find, img, link, tag, meta, export, prompt, stat, agent scan, and pipe integration — and reports PASS/FAIL for each. A quick way to explore what gmd can do.
 
 ```
 ================================================================
@@ -308,6 +308,31 @@ Search document content with structure-aware filters.
 | `gmd find link <QUERY>` | Search link URLs and wiki links |
 | `gmd find bold <QUERY>` | Search bold text (`**bold**`) |
 | `gmd find quote <QUERY>` | Search blockquotes (`> quote`) |
+
+#### Path Output Options
+
+Control how file paths are displayed in search results.
+
+```
+% gmd find Rust --full-path
+  /Users/user/docs/projects/sprint-backlog.md:10 - Complete **Rust migration** for core services
+  /Users/user/docs/notes/meeting-2026-03.md:14 - Migrate to **Rust** backend by end of Q2
+  ...
+```
+
+```
+% gmd find Rust --relative-path
+  ./projects/sprint-backlog.md:10 - Complete **Rust migration** for core services
+  ./notes/meeting-2026-03.md:14 - Migrate to **Rust** backend by end of Q2
+  ...
+```
+
+| Option | Short | Description |
+|--------|-------|-------------|
+| `--full-path` | `-F` | Show absolute path for each match |
+| `--relative-path` | `-R` | Show relative path (`./…`) for each match |
+
+These options work with all filters (`head`, `code`, `link`, `bold`, `quote`).
 
 ### 3. Asset & Link Check (`img`, `link`)
 

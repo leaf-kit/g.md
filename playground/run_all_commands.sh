@@ -104,6 +104,24 @@ run "Find: bold text (Rust)" \
 run "Find: quotes (safety)" \
     "$GMD find quote safety -p $SCRIPT_DIR"
 
+run "Find: full-text with --full-path" \
+    "$GMD find Rust --full-path -p $SCRIPT_DIR"
+
+run "Find: full-text with -F (short)" \
+    "$GMD find Rust -F -p $SCRIPT_DIR"
+
+run "Find: full-text with --relative-path" \
+    "$GMD find Rust --relative-path -p $SCRIPT_DIR"
+
+run "Find: full-text with -R (short)" \
+    "$GMD find Rust -R -p $SCRIPT_DIR"
+
+run "Find: headings with --full-path" \
+    "$GMD find head API --full-path -p $SCRIPT_DIR"
+
+run "Find: headings with --relative-path" \
+    "$GMD find head API --relative-path -p $SCRIPT_DIR"
+
 # --------------------------------------------------------------------------
 #  4. Asset & Link Check (img, link)
 # --------------------------------------------------------------------------

@@ -57,6 +57,14 @@ enum Commands {
         filter: String,
         /// Search query
         query: Option<String>,
+
+        /// Show full (absolute) path for each match
+        #[arg(short = 'F', long = "full-path")]
+        full_path: bool,
+
+        /// Show relative path (./…) for each match
+        #[arg(short = 'R', long = "relative-path")]
+        relative_path: bool,
     },
 
     /// Check and manage images in documents
@@ -171,7 +179,19 @@ fn main() {
         Commands::Todo { sub, query } => {
             cmd::todo::run_todo(&path, sub.as_deref(), query.as_deref());
         }
-        Commands::Find { filter, query } => {
+        Commands::Find {
+            filter,
+            query,
+            full_path,
+            relative_path,
+        } => {
+            let path_mode = if full_path {
+                cmd::find::PathMode::Full
+            } else if relative_path {
+                cmd::find::PathMode::Relative
+            } else {
+                cmd::find::PathMode::Default
+            };
             let known_filters = ["head", "code", "link", "bold", "quote"];
             if known_filters.contains(&filter.as_str()) {
                 let q = query.unwrap_or_default();
@@ -179,10 +199,10 @@ fn main() {
                     eprintln!("Usage: gmd find {} <QUERY>", filter);
                     std::process::exit(1);
                 }
-                cmd::find::run_find(&path, Some(&filter), &q);
+                cmd::find::run_find(&path, Some(&filter), &q, path_mode);
             } else {
                 // filter is actually the query for full-text search
-                cmd::find::run_find(&path, None, &filter);
+                cmd::find::run_find(&path, None, &filter, path_mode);
             }
         }
         Commands::Img { sub } => {
